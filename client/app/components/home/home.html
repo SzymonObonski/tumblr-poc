@@ -1,0 +1,16 @@
+<form ng-submit="vm.searchUser()" class='search-form'>
+  <span>Enter user name:</span>
+  <input type="text" ng-model="vm.userName" name="text" />
+  <input type="submit" id="submit" value="Search" class='btn' />
+</form>
+<div class="wrapper">
+  <div class="main">
+    <div id="posts">
+      <div class="post-container">
+        <post ng-repeat="post in vm.posts.posts" post="post"></post>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<button class='load-btn' ng-click='vm.loadMore()' ng-show="20 + vm.posts['posts-start'] < vm.posts['posts-total']">Load Next</button>

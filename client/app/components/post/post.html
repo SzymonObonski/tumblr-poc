@@ -1,0 +1,77 @@
+<div class="post-date">
+  <p>{{vm.post.date | date:'MM-dd'}}</p>
+</div>
+<!-- Post -->
+<div class='post'>
+  <!-- Conversation -->
+  <div class="regular" ng-if='vm.post.type == "conversation"'>
+    <div class="post-content">
+      <ul class="conversation" ng-repeat="conversation in vm.post.conversation">
+        <li><span class="label">{{conversation.label}}</span>{{conversation.phrase}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Question -->
+  <div class="answer" ng-if='vm.post.type == "answer"'>
+    <div class="post-header">
+      <h3 ng-bind-html="vm.post.question | to_html"></h3>
+    </div>
+    <div class="post-content">
+      <p>Reply:</p>
+      <blockquote ng-bind-html="vm.post.answer | to_html">
+      </blockquote>
+      <p></p>
+    </div>
+  </div>
+  <!-- Regular -->
+  <div class="regular" ng-if='vm.post.type == "regular"'>
+    <div class="post-content" ng-if="vm.post['regular-body']" ng-bind-html="vm.post['regular-body'] | to_html">
+    </div>
+  </div>
+  <!-- Photo -->
+  <div class="photo" ng-if='vm.post.type == "photo"'>
+    <a ng-href="{{vm.post.url}}" ng-if='vm.post.photos.length == 0'><img class="photo-post-photo" ng-src="{{vm.post['photo-url-500']}}" alt=""></a>
+    <a href="{{vm.post.url}}" ng-if='vm.post.photos.length != 0'><img class="photo-post-photo" ng-repeat='photo in vm.post.photos' ng-src="{{photo['photo-url-500']}}" alt=""></a>
+    <div class="post-content" ng-if="vm.post['regular-body']" ng-bind-html="vm.post['regular-body'] | to_html">
+    </div>
+    <div class="post-content" ng-if="vm.post['photo-caption']" ng-bind-html="vm.post['photo-caption'] | to_html">
+    </div>
+  </div>
+  <!-- Video -->
+  <div class="video" ng-if='vm.post.type == "video"'>
+    <div ng-bind-html="vm.post['video-player-500'] | to_html">
+      <div class="post-content" ng-bind-html="vm.post['video-caption'] | to_html">
+      </div>
+    </div>
+  </div>
+  <!-- Quote -->
+  <div class="quote" ng-if='vm.post.type == "quote"'>
+    <div class="post-content">
+      <blockquote ng-bind-html="vm.post['quote-text'] | to_html"></blockquote>
+      <p>— </p>
+      <p ng-bind-html="vm.post['quote-source'] | to_html"></p>
+    </div>
+  </div>
+  <!-- Audio -->
+  <div class="audio" ng-if='vm.post.type == "audio"'>
+    <div ng-bind-html="vm.post['audio-player'] | to_html"></div>
+    <div class="post-content" ng-bind-html="vm.post['audio-caption'] | to_html">
+    </div>
+  </div>
+  <!-- Link -->
+  <div class="link" ng-if='vm.post.type == "link"'>
+    <div class="post-content with-caption">
+      <div class="link-wrapper">
+        <a ng-href="{{vm.post['link-url']}}" class="link">
+          <div class="link-text-wrapper clearfix">
+            <div class="link-text">
+              <h2 class="link-title">{{vm.post['link-text']}}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="caption" ng-bind-html="vm.post['link-description'] | to_html">
+      </div>
+    </div>
+  </div>
+</div>
